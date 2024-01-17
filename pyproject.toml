@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "leads-for-brokers-api"
+version = "0.1.0"
+description = ""
+authors = ["Paulo Herrera <pauloherreralopes@gmail.com>"]
+readme = "README.md"
+packages = [{include = "leads_for_brokers_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+flask = "^3.0.0"
+gunicorn = "^21.2.0"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
