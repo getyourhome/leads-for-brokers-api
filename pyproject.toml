@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "leads_for_brokers_api"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.12.1"
 flask = "^3.0.0"
 gunicorn = "^21.2.0"
 python-dotenv = "^1.0.0"
