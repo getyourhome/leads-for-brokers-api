@@ -1,1 +1,1 @@
-web: poetry run gunicorn -w 4 "app.main:app"
+web: gunicorn -w 4 "app.main:app"
