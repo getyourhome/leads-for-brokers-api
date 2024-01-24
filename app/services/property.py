@@ -1,4 +1,5 @@
-from ..extensions.models import db, PropertyAd, ListingPurpose
+from ..data.models import db, PropertyAd
+from ..data.enums import ListingPurpose
 
 
 class PropertyService:

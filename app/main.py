@@ -2,7 +2,7 @@ from flask import Flask
 import os
 from dotenv import load_dotenv
 
-from app.extensions import database
+import app.data as data
 import app.api as api
 
 # Load environment variables from .env file
@@ -14,7 +14,7 @@ def create_app(testing: bool = False):
     env_config = os.getenv("APP_SETTINGS")
     app.config.from_object(env_config)
 
-    database.init_app(app)
+    data.init_app(app)
     api.init_app(app)
 
     @app.route("/")

@@ -18,7 +18,7 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from app.extensions.models import Base
+from app.data.models import Base
 
 target_metadata = Base.metadata
 
