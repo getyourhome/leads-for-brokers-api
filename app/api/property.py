@@ -3,8 +3,11 @@ from flask_restful import Resource
 
 from ..services.property import PropertyService
 
+from .auth import token_auth
+
 
 class PropertyResource(Resource):
+    @token_auth.login_required
     def post(self):
         property = PropertyService()
         property_response = property.create(request.json)
