@@ -1,13 +1,21 @@
+from flask import current_app
 from flask_httpauth import HTTPTokenAuth
-
+import jwt
 
 token_auth = HTTPTokenAuth(scheme="Bearer")
 
-tokens = {"secret-token-1": "john", "secret-token-2": "susan"}
+# Temp - user registration todo
+allowed_users = ["veloz@gmail.com"]
 
 
 @token_auth.verify_token
 def verify_token(token):
-    print(f"my token {token}")
-    if token in tokens:
-        return tokens[token]
+    secret_key = current_app.config["SECRET_KEY"]
+
+    try:
+        decoded_jwt = jwt.decode(token, secret_key, algorithms=["HS256"])
+    except Exception as e:
+        return None
+
+    if decoded_jwt["email"] in allowed_users:
+        return decoded_jwt
