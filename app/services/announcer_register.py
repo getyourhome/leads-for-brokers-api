@@ -1,13 +1,20 @@
-from ..data.models import db, PropertyAd
-from ..data.enums import ListingPurpose
+from ..data.models import db, PropertyAd, Announcer
+from ..data.enums import ListingPurpose, PropertyType
+from werkzeug.security import generate_password_hash
 
 
-class PropertyService:
+class RegisterService:
     def __init__(self):
         pass
 
     def create(self, property):
-        print(property)
+        announcer = Announcer(
+            name=property["name"],
+            email=property["email"],
+            phone=property["phone"],
+            password=generate_password_hash(property["password"]),
+        )
+
         new_ad = PropertyAd(
             neighboorhood=property["neighboorhood"],
             city=property["city"],
@@ -16,10 +23,12 @@ class PropertyService:
             desiredItems=property["desired_items"],
             min_budget=property["min_budget"],
             max_budget=property["max_budget"],
-            term_acceptance=property["term_acceptance"],
             active=True,
             listing_purpose=ListingPurpose(property["listing_purpose"]),
+            property_type=PropertyType(property["property_type"]),
+            announcer=announcer,
         )
+        db.session.add(announcer)
         db.session.add(new_ad)
         db.session.commit()
         return new_ad

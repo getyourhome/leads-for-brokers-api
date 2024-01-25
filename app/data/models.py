@@ -10,10 +10,17 @@ from sqlalchemy import (
     DateTime,
     ARRAY,
 )
-from sqlalchemy.orm import DeclarativeBase, mapped_column, relationship
+from sqlalchemy.orm import (
+    configure_mappers,
+    DeclarativeBase,
+    mapped_column,
+    relationship,
+)
 from uuid import uuid4
 
 from .enums import UserRole, ListingPurpose, PropertyType
+
+configure_mappers()
 
 
 def get_uuid():
@@ -33,11 +40,12 @@ class User(db.Model):
     id = mapped_column(String, primary_key=True, unique=True, default=get_uuid)
     type = mapped_column(Enum(UserRole), nullable=False)
     name = mapped_column(String(255), nullable=False)
-    password = mapped_column(String(64), nullable=False)
+    password = mapped_column(String(255), nullable=False)
     email = mapped_column(String(100), unique=True)
     phone = mapped_column(String(20), nullable=False)
 
-    terms = relationship("TermAcceptance", back_populates="term_acceptances")
+    terms = relationship("TermAcceptance")
+    ads = relationship("PropertyAd", back_populates="announcer")
 
     __mapper_args__ = {"polymorphic_on": type}
 
@@ -66,8 +74,6 @@ class Announcer(User):
     __tablename__ = "announcers"
 
     document_number = mapped_column(String(14), unique=True)
-
-    ads = relationship("PropertyAd", back_populates="announcer")
 
     __mapper_args__ = {
         "polymorphic_identity": UserRole.announcer,
