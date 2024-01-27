@@ -1,6 +1,7 @@
+from werkzeug.security import generate_password_hash
+
 from ..data.models import db, PropertyAd, Announcer
 from ..data.enums import ListingPurpose, PropertyType
-from werkzeug.security import generate_password_hash
 
 
 class RegisterService:
@@ -12,6 +13,7 @@ class RegisterService:
             name=property["name"],
             email=property["email"],
             phone=property["phone"],
+            document_number=property["document_number"],
             password=generate_password_hash(property["password"]),
         )
 
