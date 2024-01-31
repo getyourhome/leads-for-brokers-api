@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 
-from .auth import token_auth
+from .auth import broker_auth
 from ..services.broker_register import RegisterService
 
 
@@ -18,7 +18,7 @@ def create_broker():
 
 
 @broker_bp.route("/<id>", methods=["PUT"])
-@token_auth.login_required
+@broker_auth.login_required
 def update_broker(id):
     response = jsonify({"id": id})
     response.status_code = 201
@@ -26,7 +26,7 @@ def update_broker(id):
 
 
 @broker_bp.route("/listings", methods=["GET"])
-@token_auth.login_required
+@broker_auth.login_required
 def listings():
     response = jsonify({"id": 1})
     return response
