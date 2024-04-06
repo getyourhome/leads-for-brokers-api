@@ -1,6 +1,7 @@
 from flask import Flask
 import os
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 import app.data as data
 import app.api as api
@@ -11,6 +12,8 @@ load_dotenv()
 
 def create_app(testing: bool = False):
     app = Flask(__name__)
+    CORS(app, supports_credentials=True, origins=os.environ["API_URL"])
+
     env_config = os.getenv("APP_SETTINGS")
     app.config.from_object(env_config)
 
@@ -23,7 +26,7 @@ def create_app(testing: bool = False):
 
     @app.route("/version")
     def api_version():
-        version = os.environ["DATABASE_URL"]
+        version = os.environ["VERSION"]
         return f"API VERSION: {version}"
 
     return app

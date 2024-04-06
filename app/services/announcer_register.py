@@ -26,7 +26,7 @@ class RegisterService:
             min_budget=property["min_budget"],
             max_budget=property["max_budget"],
             active=True,
-            listing_purpose=ListingPurpose(property["listing_purpose"]),
+            listing_purpose=ListingPurpose.from_string(property["listing_purpose"]),
             property_type=PropertyType(property["property_type"]),
             announcer=announcer,
         )
